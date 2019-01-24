@@ -169,6 +169,7 @@ exe "hi! PmenuThumb"    ." guifg=".s:G1    ." ctermfg=".s:GC1    ." guibg=".s:W4
 
 exe "hi! CursorColumn"  ." guibg=".s:G1    ." ctermbg=".s:GC1
 exe "hi! CursorLine"    ." guibg=".s:G1    ." ctermbg=".s:GC1
+exe "hi! ColorColumn"   ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W2    ." ctermbg=".s:WC2
 
 hi! link TabLine StatusLineNC
 hi! link TabLineFill StatusLineNC
@@ -182,10 +183,10 @@ hi! link SignColumn LineNr
 " Conceal
 " EndOfBuffer
 
-" DiffAdd
-" DiffChange
-" DiffDelete
-" DiffText
+exe "hi! DiffAdd"        ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:G2    ." ctermbg=".s:GC2
+exe "hi! DiffChange"     ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:C2    ." ctermbg=".s:CC2
+exe "hi! DiffDelete"     ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:R2    ." ctermbg=".s:RC2
+exe "hi! DiffText"       ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:C2    ." ctermbg=".s:CC2   ." cterm=bold"              ." gui=bold"
 
 exe "hi! ErrorMsg"       ." cterm=bold"
 exe "hi! ModeMsg"        ." cterm=bold"
