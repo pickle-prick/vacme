@@ -25,61 +25,61 @@ let g:colors_name = "vacme"
     let s:W2  = '#EEEEA7'
     let s:W3  = '#999957'
     let s:W4  = '#424242'
-    let s:WC1 = '15'
-    let s:WC2 = '08'
-    let s:WC3 = '07'
-    let s:WC4 = '238'
+    let s:WC1 = '14'
+    let s:WC2 = '7'
+    let s:WC3 = '6'
+    let s:WC4 = '237'
 
 " SHADES OF RED
     let s:R1  = '#F8E7E7'
     let s:R2  = '#F2ACAA'
     let s:R3  = '#B85C57'
-    let s:RC1 = '224'
-    let s:RC2 = '09'
-    let s:RC3 = '01'
+    let s:RC1 = '15'
+    let s:RC2 = '8'
+    let s:RC3 = '0'
 
 " SHADES OF GREEN
     let s:G1  = '#EFFEEC'
     let s:G2  = '#98CE8F'
     let s:G3  = '#57864E'
-    let s:GC1 = '194'
-    let s:GC2 = '10'
-    let s:GC3 = '02'
+    let s:GC1 = '193'
+    let s:GC2 = '9'
+    let s:GC3 = '1'
 
 " SHADES OF YELLOW (which is really brown in this context)
     let s:Y1  = '#EAEBDB'
     let s:Y2  = '#B7B19C'
     let s:Y3  = '#8F7634'
-    let s:YC1 = '187'
-    let s:YC2 = '11'
-    let s:YC3 = '03'
+    let s:YC1 = '186'
+    let s:YC2 = '10'
+    let s:YC3 = '2'
 
 " SHADES OF BLUE
     let s:B1  = '#E2F1F8'
     let s:B2  = '#A6DCF8'
     let s:B3  = '#2A8DC5'
-    let s:BC1 = '195'
-    let s:BC2 = '12'
-    let s:BC3 = '04'
+    let s:BC1 = '194'
+    let s:BC2 = '11'
+    let s:BC3 = '3'
 
 " SHADES OF MAGENTA
     let s:M2  = '#D0D0F7'
     let s:M3  = '#8888C7'
-    let s:MC2 = '13'
-    let s:MC3 = '05'
+    let s:MC2 = '12'
+    let s:MC3 = '4'
 
 " SHADES OF CYAN
     let s:C1  = '#EEFEFF'
     let s:C2  = '#B0ECED'
     let s:C3  = '#6AA7A8'
     let s:CC1 = '195'
-    let s:CC2 = '14'
-    let s:CC3 = '06'
+    let s:CC2 = '13'
+    let s:CC3 = '5'
 
 " ACCENT COLORS
     " DEEP BLUE:
     let s:A1  = '#030093'
-    let s:AC1 = '18'
+    let s:AC1 = '15'
 
 " }}}
 " {{{ Reset Highlight Groups
