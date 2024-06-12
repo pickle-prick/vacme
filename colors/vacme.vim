@@ -144,6 +144,8 @@ hi!  MatchParen    term=NONE  cterm=NONE  ctermfg=NONE  ctermbg=NONE  gui=NONE  
 " {{{ Interface Colors
 " *********************************************************
 
+hi! JustBold cterm=bold gui=bold
+
 exe "hi! Normal"        ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W1    ." ctermbg=".s:WC1
 exe "hi! Visual"        ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W2    ." ctermbg=".s:WC2
 exe "hi! NonText"       ." guifg=".s:W3    ." ctermfg=".s:WC3
@@ -151,13 +153,14 @@ exe "hi! StatusLine"    ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:B1
 exe "hi! StatusLineNC"  ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:B1    ." ctermbg=".s:BC1
 exe "hi! LineNr"        ." guifg=".s:W3    ." ctermfg=".s:WC3    ." guibg=".s:Y1    ." ctermbg=".s:WC1
 exe "hi! CursorLineNr"  ." guifg=".s:W1    ." ctermfg=".s:WC1    ." guibg=".s:M2    ." ctermbg=".s:MC2
-exe "hi! VertSplit"     ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:C1    ." ctermbg=".s:CC1
 exe "hi! Folded"        ." guifg=".s:Y3    ." ctermfg=".s:YC3
 exe "hi! FoldColumn"    ." guifg=".s:Y2    ." ctermfg=".s:YC2    ." guibg=".s:Y1    ." ctermbg=".s:YC1
 exe "hi! TabLineSel"    ." guifg=".s:W1    ." ctermfg=".s:WC1    ." guibg=".s:M2    ." ctermbg=".s:MC2
 
+exe "hi! CurSearch"        ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W2    ." ctermbg=".s:WC2
 exe "hi! Search"        ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W2    ." ctermbg=".s:WC2
 exe "hi! IncSearch"     ." guifg=".s:W1    ." ctermfg=".s:WC1    ." guibg=".s:M2    ." ctermbg=".s:MC2
+exe "hi! Substitute"     ." guifg=".s:W1    ." ctermfg=".s:WC1    ." guibg=".s:M2    ." ctermbg=".s:MC2
 
 exe "hi! WildMenu"      ." guifg=".s:W1    ." ctermfg=".s:WC1    ." guibg=".s:M2    ." ctermbg=".s:MC2
 exe "hi! Pmenu"         ." guifg=".s:G3    ." ctermfg=".s:GC3    ." guibg=".s:G1    ." ctermbg=".s:GC1
@@ -171,6 +174,7 @@ exe "hi! ColorColumn"   ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:W2
 
 hi! link TabLine StatusLineNC
 hi! link TabLineFill StatusLineNC
+hi! link WinSeparator StatusLineNC
 hi! link SignColumn LineNr
 
 " ColorColumn
@@ -186,11 +190,11 @@ exe "hi! DiffChange"     ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:C
 exe "hi! DiffDelete"     ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:R1    ." ctermbg=".s:RC1
 exe "hi! DiffText"       ." guifg=".s:W4    ." ctermfg=".s:WC4    ." guibg=".s:C2    ." ctermbg=".s:CC2   ." cterm=bold"              ." gui=bold"
 
-exe "hi! ErrorMsg"       ." cterm=bold"
-exe "hi! ModeMsg"        ." cterm=bold"
-exe "hi! MoreMsg"        ." cterm=bold"
-exe "hi! WarningMsg"     ." cterm=bold"
-exe "hi! Directory"      ." cterm=bold"
+hi! link ErrorMsg JustBold
+hi! link ModeMsg JustBold
+hi! link MoreMsg JustBold
+hi! link WarningMsg JustBold
+hi! link Directory JustBold
 
 " }}}
 " {{{ Syntax highlighting
@@ -198,32 +202,37 @@ exe "hi! Directory"      ." cterm=bold"
 
 " I know I said this colorscheme doesn't do syntax highlighting, I lied.
 
-exe "hi! Comment"     ." cterm=bold"
-exe "hi! Underlined"  ." cterm=underline"  ." gui=underline"
-exe "hi! Title"       ." cterm=bold"
+hi! link String Normal
+hi! link Identifier Normal
+hi! link Function Normal
+hi! link Operator Normal
+hi! link Delimiter Normal
+
+hi! link Comment JustBold
+hi! Underlined cterm=underline gui=underline
+hi! link Title JustBold
 
 exe "hi! SpellBad"    ." guifg=".s:R2      ." ctermfg=".s:RC2  ." cterm=underline"  ." gui=underline"
-exe "hi! SpellCap"    ." cterm=underline"  ." gui=underline"
-exe "hi! SpellLocal"  ." cterm=underline"  ." gui=underline"
-exe "hi! SpellRare"   ." cterm=underline"  ." gui=underline"
+hi! SpellCap cterm=underline gui=underline
+hi! SpellLocal cterm=underline gui=underline
+hi! SpellRare cterm=underline gui=underline
 
-exe "hi! htmlBold"    ." cterm=bold"
-exe "hi! htmlItalic"  ." cterm=italic"     ." gui=italic"
+hi! link htmlBold JustBold
+hi! htmlItalic cterm=italic gui=italic
 
-exe "hi! Ignore"      ." cterm=bold"
+hi! link Ignore JustBold
 exe "hi! Error"       ." guifg=".s:W1  ." ctermfg=".s:WC1  ." guibg=".s:R2  ." ctermbg=".s:RC2
-exe "hi! Todo"        ." cterm=bold"
+hi! link Todo JustBold
 
-exe "hi! Special"     ." cterm=italic"
-exe "hi! MatchParen"  ." cterm=bold"
-exe "hi! SpecialKey"  ." cterm=bold"
-exe "hi! Ignore"      ." cterm=bold"
-" exe "hi! String"      ." cterm=italic"
-exe "hi! todo"        ." cterm=bold"
-exe "hi! MatchParen"  ." cterm=bold"
+hi! Special cterm=italic
+hi! link MatchParen JustBold
+hi! link SpecialKey JustBold
+hi! link Ignore JustBold
+hi! link todo JustBold
+hi! link MatchParen JustBold
 
-exe "hi! helpHyperTextJump"  ." cterm=bold"
-exe "hi! helpHyperTextEntry"  ." cterm=bold"
+hi! link helpHyperTextJump JustBold
+hi! link helpHyperTextEntry JustBold
 
 
 " }}}
