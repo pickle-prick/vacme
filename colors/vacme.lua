@@ -53,546 +53,557 @@ local vstyles = {
 	justit = {style='italic'}
 }
 
-local syntax = {
-}
+function syntax(group, rule)
+	vim.cmd(string.format("hi! %s term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE", group))
+	local fg = ""
+	if rule.fg then fg = string.format(' guifg=%s ctermfg=%s', rule.fg['hex'], rule.fg['term']) end
+	local bg = ""
+	if rule.bg then bg = string.format(' guibg=%s ctermbg=%s', rule.bg['hex'], rule.bg['term']) end
+	local style = ""
+	if rule.style then style = string.format(' gui=%s cterm=%s', rule.style, rule.style) end
+	vim.cmd(string.format( 'hi! %s%s%s%s', group, fg, bg, style))
+end
+function link(group, model)
+	vim.cmd(string.format("hi! link %s %s", group, model))
+end
 
 -- nvim UI elements (cursors, searches, borders, etc.)
-syntax['Normal'] = vstyles.normal
-syntax['FoldColumn'] = {fg=vcolors.y2,bg=vcolors.y1}
-syntax['Folded'] = vstyles.ghostly
-syntax['Terminal'] = vstyles.normal
-syntax['ToolbarButton'] = vstyles.normal
-syntax['ToolbarLine'] = vstyles.normal
-syntax['CursorLine'] = {bg=vcolors.g1}
-syntax['LineNr'] = {fg=vcolors.w3,bg=vcolors.y1}
-syntax['LineNrAbove'] = syntax['LineNr']
-syntax['LineNrBelow'] = syntax['LineNr']
-syntax['FloatBorder'] = {fg=vcolors.g1,bg=vcolors.g3}
-syntax['NormalFloat'] = {fg=vcolors.g3,bg=vcolors.g1}
-syntax['DiffAdd'] = {fg=vcolors.w4, bg=vcolors.g2}
-syntax['DiffChange'] = {fg=vcolors.w4, bg=vcolors.c2}
-syntax['DiffDelete'] = {fg=vcolors.w4, bg=vcolors.r1}
-syntax['DiffText'] = {fg=vcolors.w4, bg=vcolors.g2, style='bold'}
-syntax['StatusLine'] = {fg=vcolors.w4, bg=vcolors.b1, style='bold,underline'}
-syntax['StatusLineNC'] = {fg=vcolors.w4, bg=vcolors.b1}
-syntax['TabLine'] = syntax['StatusLineNC']
-syntax['TabLineFill'] = syntax['StatusLineNC']
-syntax['WinSeparator'] = syntax['StatusLineNC']
-syntax['TabLineSel'] = {fg=vcolors.w1, bg=vcolors.m2}
-syntax['CursorLineNr'] = {fg=vcolors.w1,bg=vcolors.m2}
-syntax['NonText'] = {fg=vcolors.w3}
-syntax['SpecialKey'] = vstyles.justbold
-syntax['SpellBad'] = {fg=vcolors.r2,style='underline'}
-syntax['SpellCap'] = vstyles.justuline
-syntax['SpellLocal'] = vstyles.justuline
-syntax['SpellRare'] = vstyles.justuline
-syntax['Title'] = vstyles.justbold
-syntax['ColorColumn'] = vstyles.hilited
-syntax['Conceal'] = vstyles.ghostly
-syntax['CursorColumn'] = {bg=vcolors.g1}
-syntax['Directory'] = vstyles.justbold
-syntax['EndOfBuffer'] = vstyles.ghostly
-syntax['ErrorMsg'] = vstyles.justbold
-syntax['IncSearch'] = {fg=vcolors.w1,bg=vcolors.m2}
-syntax['MatchParen'] = {bg=vcolors.w2,style='bold'}
-syntax['ModeMsg'] = vstyles.justbold
-syntax['MoreMsg'] = vstyles.justbold
-syntax['Pmenu'] = {fg=vcolors.g3,bg=vcolors.g1}
-syntax['PmenuSbar'] = {fg=vcolors.g1,bg=vcolors.g3}
-syntax['PmenuSel'] = {fg=vcolors.w4,bg=vcolors.g2,style='underline'}
-syntax['PmenuKindSel'] = {fg=vcolors.w4,bg=vcolors.g2}
-syntax['PmenuExtraSel'] = syntax['PmenuKindSel']
-syntax['PmenuThumb'] = {fg=vcolors.g1,bg=vcolors.w4}
-syntax['Question'] = vstyles.justbold
-syntax['Search'] = vstyles.hilited
-syntax['SignColumn'] = syntax['LineNr']
-syntax['Visual'] = vstyles.hilited
-syntax['VisualNOS'] = vstyles.hilited
-syntax['WarningMsg'] = vstyles.justbold
-syntax['WildMenu'] = {fg=vcolors.w1,bg=vcolors.m2}
-syntax['QuickFixLine'] = vstyles.justbold
+syntax('Normal', vstyles.normal)
+syntax('Folded', vstyles.ghostly)
+syntax('FoldColumn', vstyles.ghostly)
+syntax('Terminal', vstyles.normal)
+syntax('ToolbarButton', vstyles.normal)
+syntax('ToolbarLine', vstyles.normal)
+syntax('CursorLine', {bg=vcolors.g1})
+syntax('LineNr', {fg=vcolors.w3,bg=vcolors.y1})
+link('LineNrAbove', 'LineNr')
+link('LineNrBelow', 'LineNr')
+syntax('FloatBorder', {fg=vcolors.g1,bg=vcolors.g3})
+syntax('NormalFloat', {fg=vcolors.g3,bg=vcolors.g1})
+syntax('DiffAdd', {fg=vcolors.w4, bg=vcolors.g2})
+syntax('DiffChange', {fg=vcolors.w4, bg=vcolors.c2})
+syntax('DiffDelete', {fg=vcolors.w4, bg=vcolors.r1})
+syntax('DiffText', {fg=vcolors.w4, bg=vcolors.g2})
+syntax('StatusLine', {fg=vcolors.w4, bg=vcolors.b1, style='bold,underline'})
+syntax('StatusLineNC', {fg=vcolors.w4, bg=vcolors.b1})
+link('TabLine', 'StatusLineNC')
+link('TabLineFill', 'StatusLineNC')
+link('WinSeparator', 'StatusLineNC')
+syntax('TabLineSel', {fg=vcolors.w1, bg=vcolors.m2})
+syntax('CursorLineNr', {fg=vcolors.w1,bg=vcolors.m2})
+syntax('NonText', {fg=vcolors.w3})
+syntax('SpecialKey', vstyles.justbold)
+syntax('SpellBad', {fg=vcolors.r2,style='underline'})
+syntax('SpellCap', vstyles.justuline)
+syntax('SpellLocal', vstyles.justuline)
+syntax('SpellRare', vstyles.justuline)
+syntax('Title', vstyles.justbold)
+syntax('ColorColumn', vstyles.hilited)
+syntax('Conceal', vstyles.ghostly)
+syntax('CursorColumn', {bg=vcolors.g1})
+syntax('Directory', vstyles.justbold)
+syntax('EndOfBuffer', vstyles.ghostly)
+syntax('ErrorMsg', vstyles.justbold)
+syntax('IncSearch', {fg=vcolors.w1,bg=vcolors.m2})
+syntax('MatchParen', {bg=vcolors.w2,style='bold'})
+syntax('ModeMsg', vstyles.justbold)
+syntax('MoreMsg', vstyles.justbold)
+syntax('Pmenu', {fg=vcolors.g3,bg=vcolors.g1})
+syntax('PmenuSbar', {fg=vcolors.g1,bg=vcolors.g3})
+syntax('PmenuSel', {fg=vcolors.w4,bg=vcolors.g2,style='underline'})
+syntax('PmenuKindSel', {fg=vcolors.w4,bg=vcolors.g2})
+link('PmenuExtraSel', 'PmenuKindSel')
+syntax('PmenuThumb', {fg=vcolors.g1,bg=vcolors.w4})
+syntax('Question', vstyles.justbold)
+syntax('Search', vstyles.hilited)
+link('SignColumn', 'LineNr')
+syntax('Visual', vstyles.hilited)
+syntax('VisualNOS', vstyles.hilited)
+syntax('WarningMsg', vstyles.justbold)
+syntax('WildMenu', {fg=vcolors.w1,bg=vcolors.m2})
+syntax('QuickFixLine', vstyles.justbold)
 
 -- language syntax (comments, literals, identifiers, etc.)
-syntax['Comment'] = vstyles.justbold
+syntax('Comment', vstyles.justbold)
 
-syntax['Constant'] = vstyles.normal
-syntax['String'] = vstyles.normal
-syntax['Character'] = vstyles.normal
-syntax['Number'] = vstyles.normal
-syntax['Boolean'] = vstyles.normal
-syntax['Float'] = vstyles.normal
+syntax('Constant', vstyles.normal)
+syntax('String', vstyles.normal)
+syntax('Character', vstyles.normal)
+syntax('Number', vstyles.normal)
+syntax('Boolean', vstyles.normal)
+syntax('Float', vstyles.normal)
 
-syntax['Identifier'] = vstyles.normal
-syntax['Function'] = vstyles.normal
+syntax('Identifier', vstyles.normal)
+syntax('Function', vstyles.normal)
 
-syntax['Statement'] = vstyles.normal
-syntax['Conditional'] = vstyles.normal
-syntax['Repeat'] = vstyles.normal
-syntax['Label'] = vstyles.normal
-syntax['Operator'] = vstyles.normal
-syntax['Keyword'] = vstyles.normal
-syntax['Exception'] = vstyles.normal
+syntax('Statement', vstyles.normal)
+syntax('Conditional', vstyles.normal)
+syntax('Repeat', vstyles.normal)
+syntax('Label', vstyles.normal)
+syntax('Operator', vstyles.normal)
+syntax('Keyword', vstyles.normal)
+syntax('Exception', vstyles.normal)
 
-syntax['PreProc'] = vstyles.normal
-syntax['Include'] = vstyles.normal
-syntax['Define'] = vstyles.normal
-syntax['Macro'] = vstyles.normal
-syntax['PreCondit'] = vstyles.normal
+syntax('PreProc', vstyles.normal)
+syntax('Include', vstyles.normal)
+syntax('Define', vstyles.normal)
+syntax('Macro', vstyles.normal)
+syntax('PreCondit', vstyles.normal)
 
-syntax['Type'] = vstyles.normal
-syntax['StorageClass'] = vstyles.normal
-syntax['Structure'] = vstyles.normal
-syntax['Typedef'] = vstyles.normal
+syntax('Type', vstyles.normal)
+syntax('StorageClass', vstyles.normal)
+syntax('Structure', vstyles.normal)
+syntax('Typedef', vstyles.normal)
 
-syntax['Special'] = vstyles.normal
-syntax['SpecialChar'] = vstyles.normal
-syntax['Tag'] = vstyles.justuline
-syntax['Delimiter'] = vstyles.normal 
-syntax['SpecialComment'] = vstyles.normal 
-syntax['Debug'] = vstyles.normal 
+syntax('Special', vstyles.normal)
+syntax('SpecialChar', vstyles.normal)
+syntax('Tag', vstyles.justuline)
+syntax('Delimiter', vstyles.normal )
+syntax('SpecialComment', vstyles.normal )
+syntax('Debug', vstyles.normal )
 
-syntax['Underlined'] = vstyles.justuline
+syntax('Underlined', vstyles.justuline)
 
-syntax['Ignore'] = vstyles.justbold
+syntax('Ignore', vstyles.justbold)
 
-syntax['Error'] = vstyles.normal
+syntax('Error', vstyles.normal)
 
-syntax['Todo'] = vstyles.hilited
+syntax('Todo', vstyles.hilited)
 
 -- language-specific language syntax
--- syntax['vimCommentString'] = {fg=colors.violet}
--- syntax['vimCommand'] = {fg=colors.yellow}
--- syntax['vimCmdSep'] = {fg=colors.blue,style='bold'}
--- syntax['helpExample'] = {fg=colors.base1}
--- syntax['helpOption'] = {fg=colors.cyan}
--- syntax['helpNote'] = {fg=colors.magenta}
--- syntax['helpVim'] = {fg=colors.magenta}
--- syntax['helpHyperTextJump'] = {fg=colors.blue}
--- syntax['helpHyperTextEntry'] = {fg=colors.green}
--- syntax['vimIsCommand'] = {fg=colors.base00}
--- syntax['vimSynMtchOpt'] = {fg=colors.yellow}
--- syntax['vimSynType'] = {fg=colors.cyan}
--- syntax['vimHiLink'] = {fg=colors.blue}
--- syntax['vimHiGroup'] = {fg=colors.blue}
--- syntax['vimGroup'] = {fg=colors.blue,style='bold'}
--- syntax['gitcommitComment'] = {fg=colors.base01,style='italics'}
--- syntax['gitcommitUnmerged'] = {fg=colors.green,style='bold'}
--- syntax['gitcommitOnBranch'] = {fg=colors.base01,style='bold'}
--- syntax['gitcommitBranch'] = {fg=colors.magenta,style='bold'}
--- syntax['gitcommitdiscardedtype'] = {fg=colors.red}
--- syntax['gitcommitselectedtype'] = {fg=colors.green}
--- syntax['gitcommitHeader'] = {fg=colors.base01}
--- syntax['gitcommitUntrackedFile'] = {fg=colors.cyan,style='bold'}
--- syntax['gitcommitDiscardedFile'] = {fg=colors.red,style='bold'}
--- syntax['gitcommitSelectedFile'] = {fg=colors.green,style='bold'}
--- syntax['gitcommitUnmergedFile'] = {fg=colors.yellow,style='bold'}
--- syntax['gitcommitFile'] = {fg=colors.base0,style='bold'}
--- syntax['htmlTag'] = {fg=colors.base01}
--- syntax['htmlEndTag'] = {fg=colors.base01}
--- syntax['htmlTagN'] = {fg=colors.base1,style='bold'}
--- syntax['htmlTagName'] = {fg=colors.blue,style='bold'}
--- syntax['htmlSpecialTagName'] = {fg=colors.blue,style='italics'}
--- syntax['htmlArg'] = {fg=colors.base00}
--- syntax['javaScript'] = {fg=colors.yellow}
--- syntax['perlHereDoc'] = {fg=colors.base1}
--- syntax['perlVarPlain'] = {fg=colors.yellow}
--- syntax['perlStatementFileDesc'] = {fg=colors.cyan}
--- syntax['texstatement'] = {fg=colors.cyan}
--- syntax['texmathzonex'] = {fg=colors.yellow}
--- syntax['texmathmatcher'] = {fg=colors.yellow}
--- syntax['texreflabel'] = {fg=colors.yellow}
--- syntax['rubyDefine'] = {fg=colors.base1,style='bold'}
--- syntax['rubyBoolean'] = {fg=colors.magenta}
--- syntax['cPreCondit'] = {fg=colors.orange}
--- syntax['VarId'] = {fg=colors.blue}
--- syntax['ConId'] = {fg=colors.yellow}
--- syntax['hsImport'] = {fg=colors.magenta}
--- syntax['hsString'] = {fg=colors.base00}
--- syntax['hsStructure'] = {fg=colors.cyan}
--- syntax['hs_hlFunctionName'] = {fg=colors.blue}
--- syntax['hsStatement'] = {fg=colors.cyan}
--- syntax['hsImportLabel'] = {fg=colors.cyan}
--- syntax['hs_OpFunctionName'] = {fg=colors.yellow}
--- syntax['hs_DeclareFunction'] = {fg=colors.orange}
--- syntax['hsVarSym'] = {fg=colors.cyan}
--- syntax['hsType'] = {fg=colors.yellow}
--- syntax['hsTypedef'] = {fg=colors.cyan}
--- syntax['hsModuleName'] = {fg=colors.green}
--- syntax['pandocTitleBlock'] = {fg=colors.blue}
--- syntax['pandocTitleBlockTitle'] = {fg=colors.blue,style='bold'}
--- syntax['pandocTitleComment'] = {fg=colors.blue,style='bold'}
--- syntax['pandocComment'] = {fg=colors.base01,style='italics'}
--- syntax['pandocVerbatimBlock'] = {fg=colors.yellow}
--- syntax['pandocBlockQuote'] = {fg=colors.blue}
--- syntax['pandocBlockQuoteLeader1'] = {fg=colors.blue}
--- syntax['pandocBlockQuoteLeader2'] = {fg=colors.cyan}
--- syntax['pandocBlockQuoteLeader3'] = {fg=colors.yellow}
--- syntax['pandocBlockQuoteLeader4'] = {fg=colors.red}
--- syntax['pandocBlockQuoteLeader5'] = {fg=colors.base0}
--- syntax['pandocBlockQuoteLeader6'] = {fg=colors.base01}
--- syntax['pandocListMarker'] = {fg=colors.magenta}
--- syntax['pandocListReference'] = {fg=colors.magenta}
--- syntax['pandocDefinitionBlock'] = {fg=colors.violet}
--- syntax['pandocDefinitionTerm'] = {fg=colors.violet,style='standout'}
--- syntax['pandocDefinitionIndctr'] = {fg=colors.violet,style='bold'}
--- syntax['pandocEmphasisDefinition'] = {fg=colors.violet,style='italics'}
--- syntax['pandocEmphasisNestedDefinition'] = {fg=colors.violet,style='bold'}
--- syntax['pandocStrongEmphasisDefinition'] = {fg=colors.violet,style='bold'}
--- syntax['pandocStrongEmphasisNestedDefinition'] = {fg=colors.violet,style='bold'}
--- syntax['pandocStrongEmphasisEmphasisDefinition'] = {fg=colors.violet,style='bold'}
--- syntax['pandocStrikeoutDefinition'] = {fg=colors.violet,style='reverse'}
--- syntax['pandocVerbatimInlineDefinition'] = {fg=colors.violet}
--- syntax['pandocSuperscriptDefinition'] = {fg=colors.violet}
--- syntax['pandocSubscriptDefinition'] = {fg=colors.violet}
--- syntax['pandocTable'] = {fg=colors.blue}
--- syntax['pandocTableStructure'] = {fg=colors.blue}
--- syntax['pandocTableZebraLight'] = {fg=colors.blue,bg=colors.base03}
--- syntax['pandocTableZebraDark'] = {fg=colors.blue,bg=colors.base02}
--- syntax['pandocEmphasisTable'] = {fg=colors.blue,style='italics'}
--- syntax['pandocEmphasisNestedTable'] = {fg=colors.blue,style='bold'}
--- syntax['pandocStrongEmphasisTable'] = {fg=colors.blue,style='bold'}
--- syntax['pandocStrongEmphasisNestedTable'] = {fg=colors.blue,style='bold'}
--- syntax['pandocStrongEmphasisEmphasisTable'] = {fg=colors.blue,style='bold'}
--- syntax['pandocStrikeoutTable'] = {fg=colors.blue,style='reverse'}
--- syntax['pandocVerbatimInlineTable'] = {fg=colors.blue}
--- syntax['pandocSuperscriptTable'] = {fg=colors.blue}
--- syntax['pandocSubscriptTable'] = {fg=colors.blue}
--- syntax['pandocHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocHeadingMarker'] = {fg=colors.orange,style='bold'}
--- syntax['pandocEmphasisHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocEmphasisNestedHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocStrongEmphasisHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocStrongEmphasisNestedHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocStrongEmphasisEmphasisHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocStrikeoutHeading'] = {fg=colors.orange,style='reverse'}
--- syntax['pandocVerbatimInlineHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocSuperscriptHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocSubscriptHeading'] = {fg=colors.orange,style='bold'}
--- syntax['pandocLinkDelim'] = {fg=colors.base01}
--- syntax['pandocLinkLabel'] = {fg=colors.blue}
--- syntax['pandocLinkText'] = {fg=colors.blue}
--- syntax['pandocLinkURL'] = {fg=colors.base00}
--- syntax['pandocLinkTitle'] = {fg=colors.base00}
--- syntax['pandocLinkTitleDelim'] = {fg=colors.base01,guisp=colors.base00}
--- syntax['pandocLinkDefinition'] = {fg=colors.cyan,guisp=colors.base00}
--- syntax['pandocLinkDefinitionID'] = {fg=colors.blue,style='bold'}
--- syntax['pandocImageCaption'] = {fg=colors.violet,style='bold'}
--- syntax['pandocFootnoteLink'] = {fg=colors.green}
--- syntax['pandocFootnoteDefLink'] = {fg=colors.green,style='bold'}
--- syntax['pandocFootnoteInline'] = {fg=colors.green,style='bold'}
--- syntax['pandocFootnote'] = {fg=colors.green}
--- syntax['pandocCitationDelim'] = {fg=colors.magenta}
--- syntax['pandocCitation'] = {fg=colors.magenta}
--- syntax['pandocCitationID'] = {fg=colors.magenta}
--- syntax['pandocCitationRef'] = {fg=colors.magenta}
--- syntax['pandocStyleDelim'] = {fg=colors.base01}
--- syntax['pandocEmphasis'] = {fg=colors.base0,style='italics'}
--- syntax['pandocEmphasisNested'] = {fg=colors.base0,style='bold'}
--- syntax['pandocStrongEmphasis'] = {fg=colors.base0,style='bold'}
--- syntax['pandocStrongEmphasisNested'] = {fg=colors.base0,style='bold'}
--- syntax['pandocStrongEmphasisEmphasis'] = {fg=colors.base0,style='bold'}
--- syntax['pandocStrikeout'] = {fg=colors.base01,style='reverse'}
--- syntax['pandocVerbatimInline'] = {fg=colors.yellow}
--- syntax['pandocSuperscript'] = {fg=colors.violet}
--- syntax['pandocSubscript'] = {fg=colors.violet}
--- syntax['pandocRule'] = {fg=colors.blue,style='bold'}
--- syntax['pandocRuleLine'] = {fg=colors.blue,style='bold'}
--- syntax['pandocEscapePair'] = {fg=colors.red,style='bold'}
--- syntax['pandocCitationRef'] = {fg=colors.magenta}
--- syntax['pandocNonBreakingSpace'] = {fg=colors.red,style='reverse'}
--- syntax['pandocMetadataDelim'] = {fg=colors.base01}
--- syntax['pandocMetadata'] = {fg=colors.blue}
--- syntax['pandocMetadataKey'] = {fg=colors.blue}
--- syntax['pandocMetadata'] = {fg=colors.blue,style='bold'}
--- syntax['lCursor'] = syntax['Cursor']
--- syntax['vimVar'] = syntax['Identifier']
--- syntax['vimFunc'] = syntax['Function']
--- syntax['vimUserFunc'] = syntax['Function']
--- syntax['helpSpecial'] = syntax['Special']
--- syntax['vimSet'] = syntax['Normal']
--- syntax['vimSetEqual'] = syntax['Normal']
--- syntax['diffAdded'] = syntax['Statement']
--- syntax['diffLine'] = syntax['Identifier']
--- syntax['gitcommitUntracked'] = syntax['gitcommitComment']
--- syntax['gitcommitDiscarded'] = syntax['gitcommitComment']
--- syntax['gitcommitSelected'] = syntax['gitcommitComment']
--- syntax['gitcommitNoBranch'] = syntax['gitcommitBranch']
--- syntax['gitcommitDiscardedArrow'] = syntax['gitcommitDiscardedFile']
--- syntax['gitcommitSelectedArrow'] = syntax['gitcommitSelectedFile']
--- syntax['gitcommitUnmergedArrow'] = syntax['gitcommitUnmergedFile']
--- syntax['jsFuncCall'] = syntax['Function']
--- syntax['rubySymbol'] = syntax['String']
--- syntax['hsImportParams'] = syntax['Delimiter']
--- syntax['hsDelimTypeExport'] = syntax['Delimiter']
--- syntax['hsModuleStartLabel'] = syntax['hsStructure']
--- syntax['hsModuleWhereLabel'] = syntax['hsModuleStartLabel']
--- syntax['pandocVerbatimBlockDeep'] = syntax['pandocVerbatimBlock']
--- syntax['pandocCodeBlock'] = syntax['pandocVerbatimBlock']
--- syntax['pandocCodeBlockDelim'] = syntax['pandocVerbatimBlock']
--- syntax['pandocTableStructureTop'] = syntax['pandocTableStructre']
--- syntax['pandocTableStructureEnd'] = syntax['pandocTableStructre']
--- syntax['pandocEscapedCharacter'] = syntax['pandocEscapePair']
--- syntax['pandocLineBreak'] = syntax['pandocEscapePair']
--- syntax['pandocMetadataTitle'] = syntax['pandocMetadata']
+-- syntax('vimCommentString', {fg=colors.violet})
+-- syntax('vimCommand', {fg=colors.yellow})
+-- syntax('vimCmdSep', {fg=colors.blue,style='bold'})
+-- syntax('helpExample', {fg=colors.base1})
+-- syntax('helpOption', {fg=colors.cyan})
+-- syntax('helpNote', {fg=colors.magenta})
+-- syntax('helpVim', {fg=colors.magenta})
+-- syntax('helpHyperTextJump', {fg=colors.blue})
+-- syntax('helpHyperTextEntry', {fg=colors.green})
+-- syntax('vimIsCommand', {fg=colors.base00})
+-- syntax('vimSynMtchOpt', {fg=colors.yellow})
+-- syntax('vimSynType', {fg=colors.cyan})
+-- syntax('vimHiLink', {fg=colors.blue})
+-- syntax('vimHiGroup', {fg=colors.blue})
+-- syntax('vimGroup', {fg=colors.blue,style='bold'})
+-- syntax('gitcommitComment', {fg=colors.base01,style='italics'})
+-- syntax('gitcommitUnmerged', {fg=colors.green,style='bold'})
+-- syntax('gitcommitOnBranch', {fg=colors.base01,style='bold'})
+-- syntax('gitcommitBranch', {fg=colors.magenta,style='bold'})
+-- syntax('gitcommitdiscardedtype', {fg=colors.red})
+-- syntax('gitcommitselectedtype', {fg=colors.green})
+-- syntax('gitcommitHeader', {fg=colors.base01})
+-- syntax('gitcommitUntrackedFile', {fg=colors.cyan,style='bold'})
+-- syntax('gitcommitDiscardedFile', {fg=colors.red,style='bold'})
+-- syntax('gitcommitSelectedFile', {fg=colors.green,style='bold'})
+-- syntax('gitcommitUnmergedFile', {fg=colors.yellow,style='bold'})
+-- syntax('gitcommitFile', {fg=colors.base0,style='bold'})
+-- syntax('htmlTag', {fg=colors.base01})
+-- syntax('htmlEndTag', {fg=colors.base01})
+-- syntax('htmlTagN', {fg=colors.base1,style='bold'})
+-- syntax('htmlTagName', {fg=colors.blue,style='bold'})
+-- syntax('htmlSpecialTagName', {fg=colors.blue,style='italics'})
+-- syntax('htmlArg', {fg=colors.base00})
+-- syntax('javaScript', {fg=colors.yellow})
+-- syntax('perlHereDoc', {fg=colors.base1})
+-- syntax('perlVarPlain', {fg=colors.yellow})
+-- syntax('perlStatementFileDesc', {fg=colors.cyan})
+-- syntax('texstatement', {fg=colors.cyan})
+-- syntax('texmathzonex', {fg=colors.yellow})
+-- syntax('texmathmatcher', {fg=colors.yellow})
+-- syntax('texreflabel', {fg=colors.yellow})
+-- syntax('rubyDefine', {fg=colors.base1,style='bold'})
+-- syntax('rubyBoolean', {fg=colors.magenta})
+-- syntax('cPreCondit', {fg=colors.orange})
+-- syntax('VarId', {fg=colors.blue})
+-- syntax('ConId', {fg=colors.yellow})
+-- syntax('hsImport', {fg=colors.magenta})
+-- syntax('hsString', {fg=colors.base00})
+-- syntax('hsStructure', {fg=colors.cyan})
+-- syntax('hs_hlFunctionName', {fg=colors.blue})
+-- syntax('hsStatement', {fg=colors.cyan})
+-- syntax('hsImportLabel', {fg=colors.cyan})
+-- syntax('hs_OpFunctionName', {fg=colors.yellow})
+-- syntax('hs_DeclareFunction', {fg=colors.orange})
+-- syntax('hsVarSym', {fg=colors.cyan})
+-- syntax('hsType', {fg=colors.yellow})
+-- syntax('hsTypedef', {fg=colors.cyan})
+-- syntax('hsModuleName', {fg=colors.green})
+-- syntax('pandocTitleBlock', {fg=colors.blue})
+-- syntax('pandocTitleBlockTitle', {fg=colors.blue,style='bold'})
+-- syntax('pandocTitleComment', {fg=colors.blue,style='bold'})
+-- syntax('pandocComment', {fg=colors.base01,style='italics'})
+-- syntax('pandocVerbatimBlock', {fg=colors.yellow})
+-- syntax('pandocBlockQuote', {fg=colors.blue})
+-- syntax('pandocBlockQuoteLeader1', {fg=colors.blue})
+-- syntax('pandocBlockQuoteLeader2', {fg=colors.cyan})
+-- syntax('pandocBlockQuoteLeader3', {fg=colors.yellow})
+-- syntax('pandocBlockQuoteLeader4', {fg=colors.red})
+-- syntax('pandocBlockQuoteLeader5', {fg=colors.base0})
+-- syntax('pandocBlockQuoteLeader6', {fg=colors.base01})
+-- syntax('pandocListMarker', {fg=colors.magenta})
+-- syntax('pandocListReference', {fg=colors.magenta})
+-- syntax('pandocDefinitionBlock', {fg=colors.violet})
+-- syntax('pandocDefinitionTerm', {fg=colors.violet,style='standout'})
+-- syntax('pandocDefinitionIndctr', {fg=colors.violet,style='bold'})
+-- syntax('pandocEmphasisDefinition', {fg=colors.violet,style='italics'})
+-- syntax('pandocEmphasisNestedDefinition', {fg=colors.violet,style='bold'})
+-- syntax('pandocStrongEmphasisDefinition', {fg=colors.violet,style='bold'})
+-- syntax('pandocStrongEmphasisNestedDefinition', {fg=colors.violet,style='bold'})
+-- syntax('pandocStrongEmphasisEmphasisDefinition', {fg=colors.violet,style='bold'})
+-- syntax('pandocStrikeoutDefinition', {fg=colors.violet,style='reverse'})
+-- syntax('pandocVerbatimInlineDefinition', {fg=colors.violet})
+-- syntax('pandocSuperscriptDefinition', {fg=colors.violet})
+-- syntax('pandocSubscriptDefinition', {fg=colors.violet})
+-- syntax('pandocTable', {fg=colors.blue})
+-- syntax('pandocTableStructure', {fg=colors.blue})
+-- syntax('pandocTableZebraLight', {fg=colors.blue,bg=colors.base03})
+-- syntax('pandocTableZebraDark', {fg=colors.blue,bg=colors.base02})
+-- syntax('pandocEmphasisTable', {fg=colors.blue,style='italics'})
+-- syntax('pandocEmphasisNestedTable', {fg=colors.blue,style='bold'})
+-- syntax('pandocStrongEmphasisTable', {fg=colors.blue,style='bold'})
+-- syntax('pandocStrongEmphasisNestedTable', {fg=colors.blue,style='bold'})
+-- syntax('pandocStrongEmphasisEmphasisTable', {fg=colors.blue,style='bold'})
+-- syntax('pandocStrikeoutTable', {fg=colors.blue,style='reverse'})
+-- syntax('pandocVerbatimInlineTable', {fg=colors.blue})
+-- syntax('pandocSuperscriptTable', {fg=colors.blue})
+-- syntax('pandocSubscriptTable', {fg=colors.blue})
+-- syntax('pandocHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocHeadingMarker', {fg=colors.orange,style='bold'})
+-- syntax('pandocEmphasisHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocEmphasisNestedHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocStrongEmphasisHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocStrongEmphasisNestedHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocStrongEmphasisEmphasisHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocStrikeoutHeading', {fg=colors.orange,style='reverse'})
+-- syntax('pandocVerbatimInlineHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocSuperscriptHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocSubscriptHeading', {fg=colors.orange,style='bold'})
+-- syntax('pandocLinkDelim', {fg=colors.base01})
+-- syntax('pandocLinkLabel', {fg=colors.blue})
+-- syntax('pandocLinkText', {fg=colors.blue})
+-- syntax('pandocLinkURL', {fg=colors.base00})
+-- syntax('pandocLinkTitle', {fg=colors.base00})
+-- syntax('pandocLinkTitleDelim', {fg=colors.base01,guisp=colors.base00})
+-- syntax('pandocLinkDefinition', {fg=colors.cyan,guisp=colors.base00})
+-- syntax('pandocLinkDefinitionID', {fg=colors.blue,style='bold'})
+-- syntax('pandocImageCaption', {fg=colors.violet,style='bold'})
+-- syntax('pandocFootnoteLink', {fg=colors.green})
+-- syntax('pandocFootnoteDefLink', {fg=colors.green,style='bold'})
+-- syntax('pandocFootnoteInline', {fg=colors.green,style='bold'})
+-- syntax('pandocFootnote', {fg=colors.green})
+-- syntax('pandocCitationDelim', {fg=colors.magenta})
+-- syntax('pandocCitation', {fg=colors.magenta})
+-- syntax('pandocCitationID', {fg=colors.magenta})
+-- syntax('pandocCitationRef', {fg=colors.magenta})
+-- syntax('pandocStyleDelim', {fg=colors.base01})
+-- syntax('pandocEmphasis', {fg=colors.base0,style='italics'})
+-- syntax('pandocEmphasisNested', {fg=colors.base0,style='bold'})
+-- syntax('pandocStrongEmphasis', {fg=colors.base0,style='bold'})
+-- syntax('pandocStrongEmphasisNested', {fg=colors.base0,style='bold'})
+-- syntax('pandocStrongEmphasisEmphasis', {fg=colors.base0,style='bold'})
+-- syntax('pandocStrikeout', {fg=colors.base01,style='reverse'})
+-- syntax('pandocVerbatimInline', {fg=colors.yellow})
+-- syntax('pandocSuperscript', {fg=colors.violet})
+-- syntax('pandocSubscript', {fg=colors.violet})
+-- syntax('pandocRule', {fg=colors.blue,style='bold'})
+-- syntax('pandocRuleLine', {fg=colors.blue,style='bold'})
+-- syntax('pandocEscapePair', {fg=colors.red,style='bold'})
+-- syntax('pandocCitationRef', {fg=colors.magenta})
+-- syntax('pandocNonBreakingSpace', {fg=colors.red,style='reverse'})
+-- syntax('pandocMetadataDelim', {fg=colors.base01})
+-- syntax('pandocMetadata', {fg=colors.blue})
+-- syntax('pandocMetadataKey', {fg=colors.blue})
+-- syntax('pandocMetadata', {fg=colors.blue,style='bold'})
+-- link('lCursor', 'Cursor')
+-- link('vimVar', 'Identifier')
+-- link('vimFunc', 'Function')
+-- link('vimUserFunc', 'Function')
+-- link('helpSpecial', 'Special')
+-- link('vimSet', 'Normal')
+-- link('vimSetEqual', 'Normal')
+-- link('diffAdded', 'Statement')
+-- link('diffLine', 'Identifier')
+-- link('gitcommitUntracked', 'gitcommitComment')
+-- link('gitcommitDiscarded', 'gitcommitComment')
+-- link('gitcommitSelected', 'gitcommitComment')
+-- link('gitcommitNoBranch', 'gitcommitBranch')
+-- link('gitcommitDiscardedArrow', 'gitcommitDiscardedFile')
+-- link('gitcommitSelectedArrow', 'gitcommitSelectedFile')
+-- link('gitcommitUnmergedArrow', 'gitcommitUnmergedFile')
+-- link('jsFuncCall', 'Function')
+-- link('rubySymbol', 'String')
+-- link('hsImportParams', 'Delimiter')
+-- link('hsDelimTypeExport', 'Delimiter')
+-- link('hsModuleStartLabel', 'hsStructure')
+-- link('hsModuleWhereLabel', 'hsModuleStartLabel')
+-- link('pandocVerbatimBlockDeep', 'pandocVerbatimBlock')
+-- link('pandocCodeBlock', 'pandocVerbatimBlock')
+-- link('pandocCodeBlockDelim', 'pandocVerbatimBlock')
+-- link('pandocTableStructureTop', 'pandocTableStructre')
+-- link('pandocTableStructureEnd', 'pandocTableStructre')
+-- link('pandocEscapedCharacter', 'pandocEscapePair')
+-- link('pandocLineBreak', 'pandocEscapePair')
+-- link('pandocMetadataTitle', 'pandocMetadata')
 
 -- TreeSitter
--- syntax['TSAnnotation'] = syntax['']
--- syntax['TSBoolean'] = syntax['Constant']
--- syntax['TSCharacter'] = syntax['Constant']
--- syntax['TSComment'] = syntax['Comment']
--- syntax['TSConditional'] = syntax['Conditional']
--- syntax['TSConstant'] = syntax['Constant']
--- syntax['TSConstBuiltin'] = syntax['Constant']
--- syntax['TSConstMacro'] = syntax['Constant']
--- syntax['TSError'] = {fg=colors.red}
--- syntax['TSException'] = syntax['Exception']
--- syntax['TSField'] = syntax['Identifier']
--- syntax['TSFloat'] = syntax['Float']
--- syntax['TSFunction'] = syntax['Function']
--- syntax['TSFuncBuiltin'] = syntax['Function']
--- syntax['TSFuncMacro'] = syntax['Function']
--- syntax['TSInclude'] = syntax['Include']
--- syntax['TSKeyword'] = syntax['Keyword']
--- syntax['TSLabel'] = syntax['Label']
--- syntax['TSMethod'] = syntax['Function']
--- syntax['TSNamespace'] = syntax['Identifier']
--- syntax['TSNumber'] = syntax['Constant']
--- syntax['TSOperator'] = syntax['Operator']
--- syntax['TSParameterReference'] = syntax['Identifier']
--- syntax['TSProperty'] = syntax['TSField']
--- syntax['TSPunctDelimiter'] = syntax['Delimiter']
--- syntax['TSPunctBracket'] = syntax['Delimiter']
--- syntax['TSPunctSpecial'] = syntax['Special']
--- syntax['TSRepeat'] = syntax['Repeat']
--- syntax['TSString'] = syntax['Constant']
--- syntax['TSStringRegex'] = syntax['Constant']
--- syntax['TSStringEscape'] = syntax['Constant']
--- syntax['TSStrong'] = {fg=colors.base1,bg=colors.base03,style='bold'}
--- syntax['TSConstructor'] = syntax['Function']
--- syntax['TSKeywordFunction'] = syntax['Identifier']
--- syntax['TSLiteral'] = syntax['Normal']
--- syntax['TSParameter'] = syntax['Identifier']
--- syntax['TSVariable'] = {fg=colors.base1}
--- syntax['TSVariableBuiltin'] = syntax['Identifier']
--- syntax['TSTag'] = syntax['Special']
--- syntax['TSTagDelimiter'] = syntax['Delimiter']
--- syntax['TSTitle'] = syntax['Title']
--- syntax['TSType'] = syntax['Type']
--- syntax['TSTypeBuiltin'] = syntax['Type']
--- syntax['TSEmphasis'] = syntax['']
+-- link('TSAnnotation', '')
+-- link('TSBoolean', 'Constant')
+-- link('TSCharacter', 'Constant')
+-- link('TSComment', 'Comment')
+-- link('TSConditional', 'Conditional')
+-- link('TSConstant', 'Constant')
+-- link('TSConstBuiltin', 'Constant')
+-- link('TSConstMacro', 'Constant')
+-- syntax('TSError', {fg=colors.red})
+-- link('TSException', 'Exception')
+-- link('TSField', 'Identifier')
+-- link('TSFloat', 'Float')
+-- link('TSFunction', 'Function')
+-- link('TSFuncBuiltin', 'Function')
+-- link('TSFuncMacro', 'Function')
+-- link('TSInclude', 'Include')
+-- link('TSKeyword', 'Keyword')
+-- link('TSLabel', 'Label')
+-- link('TSMethod', 'Function')
+-- link('TSNamespace', 'Identifier')
+-- link('TSNumber', 'Constant')
+-- link('TSOperator', 'Operator')
+-- link('TSParameterReference', 'Identifier')
+-- link('TSProperty', 'TSField')
+-- link('TSPunctDelimiter', 'Delimiter')
+-- link('TSPunctBracket', 'Delimiter')
+-- link('TSPunctSpecial', 'Special')
+-- link('TSRepeat', 'Repeat')
+-- link('TSString', 'Constant')
+-- link('TSStringRegex', 'Constant')
+-- link('TSStringEscape', 'Constant')
+-- syntax('TSStrong', {fg=colors.base1,bg=colors.base03,style='bold'})
+-- link('TSConstructor', 'Function')
+-- link('TSKeywordFunction', 'Identifier')
+-- link('TSLiteral', 'Normal')
+-- link('TSParameter', 'Identifier')
+-- syntax('TSVariable', {fg=colors.base1})
+-- link('TSVariableBuiltin', 'Identifier')
+-- link('TSTag', 'Special')
+-- link('TSTagDelimiter', 'Delimiter')
+-- link('TSTitle', 'Title')
+-- link('TSType', 'Type')
+-- link('TSTypeBuiltin', 'Type')
+-- link('TSEmphasis', '')
 
 -- BEGIN Neovim >= 0.8
 -- Misc {{{
--- syntax['@comment'] = syntax['Comment']
--- syntax['@error'] = {fg=colors.red}
--- syntax['@none'] = syntax['NONE']
+-- link('@comment', 'Comment')
+-- syntax('@error', {fg=colors.red})
+-- link('@none', 'NONE')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@preproc'] = syntax['PreProc']
+-- link('@preproc', 'PreProc')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@keyword.directive'] = syntax['PreProc']
+-- link('@keyword.directive', 'PreProc')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@define'] = syntax['Define']
+-- link('@define', 'Define')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@keyword.directive.define'] = syntax['Define']
--- syntax['@operator'] = syntax['Operator']
+-- link('@keyword.directive.define', 'Define')
+-- link('@operator', 'Operator')
 -- }}}
 
 -- Punctuation {{{
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@punctuation.delimiter'] = syntax['Statement']
+-- link('@punctuation.delimiter', 'Statement')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.raw.delimiter'] = syntax['Statement']
--- syntax['@punctuation.bracket'] = syntax['Delimiter']
+-- link('@markup.raw.delimiter', 'Statement')
+-- link('@punctuation.bracket', 'Delimiter')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@punctuation.special'] = syntax['Delimiter']
+-- link('@punctuation.special', 'Delimiter')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.list'] = syntax['Delimiter']
+-- link('@markup.list', 'Delimiter')
 -- }}}
 
 -- Literals {{{
--- syntax['@string'] = syntax['String']
+-- link('@string', 'String')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@string.regex'] = syntax['String']
+-- link('@string.regex', 'String')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@string.regexp'] = syntax['String']
--- syntax['@string.escape'] = syntax['Special']
+-- link('@string.regexp', 'String')
+-- link('@string.escape', 'Special')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@string.special'] = syntax['Special']
+-- link('@string.special', 'Special')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.link.label'] = syntax['Constant']
--- syntax['@character'] = syntax['Character']
--- syntax['@character.special'] = syntax['Special']
--- syntax['@boolean'] = syntax['Boolean']
--- syntax['@number'] = syntax['Number']
+-- link('@markup.link.label', 'Constant')
+-- link('@character', 'Character')
+-- link('@character.special', 'Special')
+-- link('@boolean', 'Boolean')
+-- link('@number', 'Number')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@float'] = syntax['Float']
+-- link('@float', 'Float')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@number.float'] = syntax['Float']
+-- link('@number.float', 'Float')
 -- }}}
 
 -- Functions {{{
--- syntax['@function'] = syntax['Function']
--- syntax['@function.call'] = syntax['Function']
--- syntax['@function.builtin'] = syntax['Function']
--- syntax['@function.macro'] = syntax['Macro']
+-- link('@function', 'Function')
+-- link('@function.call', 'Function')
+-- link('@function.builtin', 'Function')
+-- link('@function.macro', 'Macro')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@method'] = syntax['Function']
--- syntax['@method.call'] = syntax['Function']
+-- link('@method', 'Function')
+-- link('@method.call', 'Function')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@function.method'] = syntax['Function']
--- syntax['@function.method.call'] = syntax['Function']
--- syntax['@constructor'] = syntax['Special']
+-- link('@function.method', 'Function')
+-- link('@function.method.call', 'Function')
+-- link('@constructor', 'Special')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@parameter'] = syntax['Normal']
+-- link('@parameter', 'Normal')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@variable.parameter'] = syntax['Normal']
+-- link('@variable.parameter', 'Normal')
 -- }}}
 
 -- Keywords {{{
--- syntax['@keyword'] = syntax['Keyword']
--- syntax['@keyword.function'] = syntax['Keyword']
--- syntax['@keyword.operator'] = syntax['Keyword']
--- syntax['@keyword.return'] = syntax['Keyword']
+-- link('@keyword', 'Keyword')
+-- link('@keyword.function', 'Keyword')
+-- link('@keyword.operator', 'Keyword')
+-- link('@keyword.return', 'Keyword')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@conditional'] = syntax['Conditional']
--- syntax['@repeat'] = syntax['Repeat']
--- syntax['@debug'] = syntax['Debug']
+-- link('@conditional', 'Conditional')
+-- link('@repeat', 'Repeat')
+-- link('@debug', 'Debug')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@keyword.conditional'] = syntax['Conditional']
--- syntax['@keyword.repeat'] = syntax['Repeat']
--- syntax['@keyword.debug'] = syntax['Debug']
--- syntax['@label'] = syntax['Label']
+-- link('@keyword.conditional', 'Conditional')
+-- link('@keyword.repeat', 'Repeat')
+-- link('@keyword.debug', 'Debug')
+-- link('@label', 'Label')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@include'] = syntax['Include']
--- syntax['@exception'] = syntax['Exception']
+-- link('@include', 'Include')
+-- link('@exception', 'Exception')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@keyword.import'] = syntax['Include']
--- syntax['@keyword.exception'] = syntax['Exception']
+-- link('@keyword.import', 'Include')
+-- link('@keyword.exception', 'Exception')
 -- }}}
 
 -- Types {{{
--- syntax['@type'] = syntax['Type']
--- syntax['@type.builtin'] = syntax['Type']
--- syntax['@type.qualifier'] = syntax['Type']
--- syntax['@type.definition'] = syntax['Typedef']
+-- link('@type', 'Type')
+-- link('@type.builtin', 'Type')
+-- link('@type.qualifier', 'Type')
+-- link('@type.definition', 'Typedef')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@storageclass'] = syntax['StorageClass']
+-- link('@storageclass', 'StorageClass')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@keyword.storage'] = syntax['StorageClass']
--- syntax['@attribute'] = syntax['Identifier']
+-- link('@keyword.storage', 'StorageClass')
+-- link('@attribute', 'Identifier')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@field'] = syntax['Identifier']
+-- link('@field', 'Identifier')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@variable.member'] = syntax['Identifier']
--- syntax['@property'] = syntax['Identifier']
+-- link('@variable.member', 'Identifier')
+-- link('@property', 'Identifier')
 -- }}}
 
 -- Identifiers {{{
--- syntax['@variable'] = {fg=colors.base1}
--- syntax['@variable.builtin'] = syntax['Special']
--- syntax['@constant'] = syntax['Constant']
--- syntax['@constant.builtin'] = syntax['Type']
--- syntax['@constant.macro'] = syntax['Define']
--- syntax['@namespace'] = syntax['Identifier']
--- syntax['@symbol'] = syntax['Identifier']
+-- syntax('@variable', {fg=colors.base1})
+-- link('@variable.builtin', 'Special')
+-- link('@constant', 'Constant')
+-- link('@constant.builtin', 'Type')
+-- link('@constant.macro', 'Define')
+-- link('@namespace', 'Identifier')
+-- link('@symbol', 'Identifier')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@module'] = syntax['Identifier']
+-- link('@module', 'Identifier')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@string.special.symbol'] = syntax['Identifier']
+-- link('@string.special.symbol', 'Identifier')
 -- }}}
 
 -- Text {{{
--- syntax['@text'] = syntax['Normal']
+-- link('@text', 'Normal')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.strong'] = {fg=colors.base1,bg=colors.base03,style='bold'}
--- syntax['@text.emphasis'] = {fg=colors.base1,bg=colors.base03,style='bold'}
--- syntax['@text.underline'] = syntax['Underlined']
--- syntax['@text.strike'] = syntax['Strikethrough']
+-- syntax('@text.strong', {fg=colors.base1,bg=colors.base03,style='bold'})
+-- syntax('@text.emphasis', {fg=colors.base1,bg=colors.base03,style='bold'})
+-- link('@text.underline', 'Underlined')
+-- link('@text.strike', 'Strikethrough')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.strong'] = {fg=colors.base1,bg=colors.base03,style='bold'}
--- syntax['@markup.emphasis'] = {fg=colors.base1,bg=colors.base03,style='bold'}
--- syntax['@markup.italic'] = {fg=colors.base1,bg=colors.base03,style='italics'}
--- syntax['@markup.underline'] = syntax['Underlined']
--- syntax['@markup.strike'] = syntax['Strikethrough']
--- syntax['@markup.strikethrough'] = syntax['Strikethrough']
+-- syntax('@markup.strong', {fg=colors.base1,bg=colors.base03,style='bold'})
+-- syntax('@markup.emphasis', {fg=colors.base1,bg=colors.base03,style='bold'})
+-- syntax('@markup.italic', {fg=colors.base1,bg=colors.base03,style='italics'})
+-- link('@markup.underline', 'Underlined')
+-- link('@markup.strike', 'Strikethrough')
+-- link('@markup.strikethrough', 'Strikethrough')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.title'] = syntax['Title']
--- syntax['@text.literal'] = syntax['String']
+-- link('@text.title', 'Title')
+-- link('@text.literal', 'String')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.heading'] = syntax['Title']
--- syntax['@markup.raw'] = syntax['String']
+-- link('@markup.heading', 'Title')
+-- link('@markup.raw', 'String')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.uri'] = syntax['Underlined']
+-- link('@text.uri', 'Underlined')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@string.special.url'] = syntax['Underlined']
--- syntax['@markup.link.url'] = syntax['Underlined']
+-- link('@string.special.url', 'Underlined')
+-- link('@markup.link.url', 'Underlined')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.math'] = syntax['Special']
--- syntax['@text.environment'] = syntax['Macro']
--- syntax['@text.environment.name'] = syntax['Type']
+-- link('@text.math', 'Special')
+-- link('@text.environment', 'Macro')
+-- link('@text.environment.name', 'Type')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.math'] = syntax['@text.emphasis']
--- syntax['@markup.environment'] = syntax['Macro']
--- syntax['@markup.environment.name'] = syntax['Type']
+-- link('@markup.math', '@text.emphasis')
+-- link('@markup.environment', 'Macro')
+-- link('@markup.environment.name', 'Type')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.reference'] = syntax['Constant']
+-- link('@text.reference', 'Constant')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.link'] = syntax['Constant']
+-- link('@markup.link', 'Constant')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.todo'] = syntax['Todo']
+-- link('@text.todo', 'Todo')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@markup.list.checked'] = syntax['Todo']
--- syntax['@markup.list.unchecked'] = syntax['Todo']
--- syntax['@comment.todo'] = syntax['Todo']
+-- link('@markup.list.checked', 'Todo')
+-- link('@markup.list.unchecked', 'Todo')
+-- link('@comment.todo', 'Todo')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.note'] = syntax['WarningMsg']
+-- link('@text.note', 'WarningMsg')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@comment.info'] = syntax['WarningMsg']
--- syntax['@comment.hint'] = syntax['WarningMsg']
+-- link('@comment.info', 'WarningMsg')
+-- link('@comment.hint', 'WarningMsg')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.warning'] = syntax['WarningMsg']
+-- link('@text.warning', 'WarningMsg')
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@comment.warning'] = syntax['WarningMsg']
+-- link('@comment.warning', 'WarningMsg')
 -- -- deprecated in nvim-treesitter 0.10
--- syntax['@text.danger'] = {fg=colors.red,style='bold'}
+-- syntax('@text.danger', {fg=colors.red,style='bold'})
 -- -- replacement in nvim-treesitter 0.10
--- syntax['@comment.danger'] = {fg=colors.red,style='bold'}
+-- syntax('@comment.danger', {fg=colors.red,style='bold'})
 -- }}}
 
 -- Tags {{{
--- syntax['@tag'] = syntax['Tag']
--- syntax['@tag.attribute'] = syntax['Identifier']
--- syntax['@tag.delimiter'] = syntax['Delimiter']
+-- link('@tag', 'Tag')
+-- link('@tag.attribute', 'Identifier')
+-- link('@tag.delimiter', 'Delimiter')
 -- }}}
 -- END Neovim >= 0.8
 
 -- Lsp
--- syntax['LspReferenceRead'] = {fg=colors.none,style='underline'}
--- syntax['LspReferenceText'] = syntax['LspReferenceRead']
--- syntax['LspReferenceWrite'] = {fg=colors.none,style='underline,bold'}
--- syntax['LspSagaFinderSelection'] = syntax['Search']
--- syntax['TargetWord'] = syntax['Title']
+-- syntax('LspReferenceRead', {fg=colors.none,style='underline'})
+-- link('LspReferenceText', 'LspReferenceRead')
+-- syntax('LspReferenceWrite', {fg=colors.none,style='underline,bold'})
+-- link('LspSagaFinderSelection', 'Search')
+-- link('TargetWord', 'Title')
 
 -- Unknowns
 
--- syntax['StatusLineTerm'] = syntax['StatusLine']
--- syntax['StatusLineTermNC'] = syntax['StatusLineNC']
+-- link('StatusLineTerm', 'StatusLine')
+-- link('StatusLineTermNC', 'StatusLineNC')
 
--- syntax['DiagnosticError'] = {fg=colors.red,guisp=colors.red,style='none'}
--- syntax['DiagnosticWarn'] = {fg=colors.yellow,guisp=colors.yellow,style='none'}
--- syntax['DiagnosticInfo'] = {fg=colors.cyan,guisp=colors.cyan,style='none'}
--- syntax['DiagnosticHint'] = {fg=colors.green,guisp=colors.green,style='none'}
--- syntax['DiagnosticUnderlineError'] = {fg=colors.none,guisp=colors.red,style='underline'}
--- syntax['DiagnosticUnderlineWarn'] = {fg=colors.none,guisp=colors.yellow,style='underline'}
--- syntax['DiagnosticUnderlineInfo'] = {fg=colors.none,guisp=colors.cyan,style='underline'}
--- syntax['DiagnosticUnderlineHint'] = {fg=colors.none,guisp=colors.green,style='underline'}
+-- syntax('DiagnosticError', {fg=colors.red,guisp=colors.red,style='none'})
+-- syntax('DiagnosticWarn', {fg=colors.yellow,guisp=colors.yellow,style='none'})
+-- syntax('DiagnosticInfo', {fg=colors.cyan,guisp=colors.cyan,style='none'})
+-- syntax('DiagnosticHint', {fg=colors.green,guisp=colors.green,style='none'})
+-- syntax('DiagnosticUnderlineError', {fg=colors.none,guisp=colors.red,style='underline'})
+-- syntax('DiagnosticUnderlineWarn', {fg=colors.none,guisp=colors.yellow,style='underline'})
+-- syntax('DiagnosticUnderlineInfo', {fg=colors.none,guisp=colors.cyan,style='underline'})
+-- syntax('DiagnosticUnderlineHint', {fg=colors.none,guisp=colors.green,style='underline'})
 
--- syntax['GitSignsAdd'] = syntax['DiffAdd']
--- syntax['GitSignsChange'] = syntax['DiffChange']
--- syntax['GitSignsDelete'] = syntax['DiffDelete']
--- syntax['VGitSignAdd'] = syntax['DiffAdd']
--- syntax['VgitSignChange'] = syntax['DiffChange']
--- syntax['VGitSignRemove'] = syntax['DiffDelete']
+-- link('GitSignsAdd', 'DiffAdd')
+-- link('GitSignsChange', 'DiffChange')
+-- link('GitSignsDelete', 'DiffDelete')
+-- link('VGitSignAdd', 'DiffAdd')
+-- link('VgitSignChange', 'DiffChange')
+-- link('VGitSignRemove', 'DiffDelete')
 
 -- nvim-cmp syntax support
 -- syntax['CmpDocumentation' ] = {fg=colors.base2, bg=colors.base02 }
@@ -625,44 +636,32 @@ syntax['Todo'] = vstyles.hilited
 -- syntax['CmpItemKindOperator' ] = {fg=colors.base1, bg=colors.none }
 -- syntax['CmpItemKindSnippet' ] = {fg=colors.orange, bg=colors.none }
 
--- syntax['NavicIconsFile'] = syntax['CmpItemKindFile']
--- syntax['NavicIconsModule'] = syntax['CmpItemKindModule']
--- syntax['NavicIconsNamespace'] = syntax['CmpItemKindModule']
--- syntax['NavicIconsPackage'] = syntax['CmpItemKindModule']
--- syntax['NavicIconsClass'] = syntax['CmpItemKindClass']
--- syntax['NavicIconsMethod'] = syntax['CmpItemKindMethod']
--- syntax['NavicIconsProperty'] = syntax['CmpItemKindProperty']
--- syntax['NavicIconsField'] = syntax['CmpItemKindField']
--- syntax['NavicIconsConstructor'] = syntax['CmpItemKindConstructor']
--- syntax['NavicIconsEnum'] = syntax['CmpItemKindEnum']
--- syntax['NavicIconsInterface'] = syntax['CmpItemKindInterface']
--- syntax['NavicIconsFunction'] = syntax['CmpItemKindFunction']
--- syntax['NavicIconsVariable'] = syntax ['CmpItemKindVariable']
--- syntax['NavicIconsConstant'] = syntax['CmpItemKindConstant']
--- syntax['NavicIconsString'] = syntax['String']
--- syntax['NavicIconsNumber'] = syntax['Number']
--- syntax['NavicIconsBoolean'] = syntax['Boolean']
--- syntax['NavicIconsArray'] = syntax['CmpItemKindClass']
--- syntax['NavicIconsObject'] = syntax['CmpItemKindClass']
--- syntax['NavicIconsKey'] = syntax['CmpItemKindKeyword']
--- syntax['NavicIconsKeyword'] = syntax['CmpItemKindKeyword']
--- syntax['NavicIconsNull'] =  {fg=colors.blue, bg=colors.none }
--- syntax['NavicIconsEnumMember'] = syntax['CmpItemKindEnumMember']
--- syntax['NavicIconsStruct'] = syntax['CmpItemKindStruct']
--- syntax['NavicIconsEvent'] = syntax['CmpItemKindEvent']
--- syntax['NavicIconsOperator'] = syntax['CmpItemKindOperator']
--- syntax['NavicIconsTypeParameter'] = syntax['CmpItemKindTypeParameter']
--- syntax['NavicText'] = syntax['LineNr']
--- syntax['NavicSeparator'] = syntax['Comment']
-
-
-for group, rule in pairs(syntax) do
-	vim.cmd(string.format("hi! %s term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE", group))
-	local fg = ""
-	if rule.fg then fg = string.format(' guifg=%s ctermfg=%s', rule.fg['hex'], rule.fg['term']) end
-	local bg = ""
-	if rule.bg then bg = string.format(' guibg=%s ctermbg=%s', rule.bg['hex'], rule.bg['term']) end
-	local style = ""
-	if rule.style then style = string.format(' gui=%s cterm=%s', rule.style, rule.style) end
-	vim.cmd(string.format( 'hi! %s%s%s%s', group, fg, bg, style))
-end
+-- link('NavicIconsFile', 'CmpItemKindFile')
+-- link('NavicIconsModule', 'CmpItemKindModule')
+-- link('NavicIconsNamespace', 'CmpItemKindModule')
+-- link('NavicIconsPackage', 'CmpItemKindModule')
+-- link('NavicIconsClass', 'CmpItemKindClass')
+-- link('NavicIconsMethod', 'CmpItemKindMethod')
+-- link('NavicIconsProperty', 'CmpItemKindProperty')
+-- link('NavicIconsField', 'CmpItemKindField')
+-- link('NavicIconsConstructor', 'CmpItemKindConstructor')
+-- link('NavicIconsEnum', 'CmpItemKindEnum')
+-- link('NavicIconsInterface', 'CmpItemKindInterface')
+-- link('NavicIconsFunction', 'CmpItemKindFunction')
+-- syntax('NavicIconsVariable', syntax ['CmpItemKindVariable'])
+-- link('NavicIconsConstant', 'CmpItemKindConstant')
+-- link('NavicIconsString', 'String')
+-- link('NavicIconsNumber', 'Number')
+-- link('NavicIconsBoolean', 'Boolean')
+-- link('NavicIconsArray', 'CmpItemKindClass')
+-- link('NavicIconsObject', 'CmpItemKindClass')
+-- link('NavicIconsKey', 'CmpItemKindKeyword')
+-- link('NavicIconsKeyword', 'CmpItemKindKeyword')
+-- syntax('NavicIconsNull', {fg=colors.blue, bg=colors.none })
+-- link('NavicIconsEnumMember', 'CmpItemKindEnumMember')
+-- link('NavicIconsStruct', 'CmpItemKindStruct')
+-- link('NavicIconsEvent', 'CmpItemKindEvent')
+-- link('NavicIconsOperator', 'CmpItemKindOperator')
+-- link('NavicIconsTypeParameter', 'CmpItemKindTypeParameter')
+-- link('NavicText', 'LineNr')
+-- link('NavicSeparator', 'Comment')
