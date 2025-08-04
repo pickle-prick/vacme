@@ -8,8 +8,7 @@ vim.g.colors_name = 'vacme'
 
 local vcolors = {
 	-- whites
-	-- w1 = {term='15',hex='#FFFFEC'},
-	w1 = {term='15',hex='#FEF5E8'},
+	w1 = {term='15',hex='#FFFFEC'},
 	w2 = {term='11',hex='#EEEEA7'},
 	w3 = {term='7',hex='#999957'},
 	w4 = {term='0',hex='#424242'},
