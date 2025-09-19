@@ -5,6 +5,7 @@ if vim.fn.exists("syntax_on") then
 end
 
 vim.g.colors_name = 'vacme'
+vim.o.background = 'light'
 
 local vcolors = {
 	-- whites
