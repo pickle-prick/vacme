@@ -5,6 +5,7 @@ if vim.fn.exists("syntax_on") then
 end
 
 vim.g.colors_name = 'vacme'
+vim.g.matchparen_disable_cursor_hl = 1
 vim.o.background = 'light'
 
 local vcolors = {
@@ -107,7 +108,7 @@ syntax('Directory', vstyles.justbold)
 syntax('EndOfBuffer', vstyles.ghostly)
 syntax('ErrorMsg', vstyles.justbold)
 syntax('IncSearch', {fg=vcolors.w1,bg=vcolors.m2})
-syntax('MatchParen', {bg=vcolors.w2,style='bold'})
+syntax('MatchParen', {bg=vcolors.b3,style='bold'})
 syntax('ModeMsg', vstyles.justbold)
 syntax('MoreMsg', vstyles.justbold)
 syntax('Pmenu', {fg=vcolors.w4,bg=vcolors.y1})
