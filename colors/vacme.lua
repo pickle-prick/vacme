@@ -49,7 +49,7 @@ local vstyles = {
 	normal = {fg=vcolors.w4,bg=vcolors.w2},
 	ghostly = {fg=vcolors.y3,bg=vcolors.w2},
 	hilited = {fg=vcolors.w4,bg=vcolors.y1},
-	selected = {fg=vcolors.w1,bg=vcolors.y3},
+	selected = {fg=vcolors.w4,bg=vcolors.y2},
 	justbold = {style='bold'},
 	justuline = {style='underline'},
 	justit = {style='italic'}
