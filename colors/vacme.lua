@@ -13,7 +13,7 @@ local vcolors = {
 	w1 = {term='229',hex='#EADA8D'},
 	w2 = {term='221',hex='#DDBF6A'},
 	w3 = {term='179',hex='#927844'},
-	w4 = {term='236',hex='#403226'},
+	w4 = {term='233',hex='#000000'},
 
 	-- reds
 	r1 = {term='9',hex='#F2ACAA'},
