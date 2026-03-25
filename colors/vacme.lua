@@ -9,10 +9,10 @@ vim.o.background = 'light'
 
 local vcolors = {
 	-- whites
-	w1 = {term='15',hex='#FFFFEC'},
-	w2 = {term='11',hex='#EEEEA7'},
-	w3 = {term='7',hex='#999957'},
-	w4 = {term='0',hex='#424242'},
+	w1 = {term='229',hex='#EADA8D'},
+	w2 = {term='221',hex='#DDBF6A'},
+	w3 = {term='179',hex='#927844'},
+	w4 = {term='236',hex='#403226'},
 
 	-- reds
 	r1 = {term='9',hex='#F2ACAA'},
@@ -24,9 +24,9 @@ local vcolors = {
 	g3 = {term='2',hex='#57864E'},
 
 	-- yellows
-	y1 = {term='187',hex='#EAEBDB'},
-	y2 = {term='8',hex='#B7B19C'},
-	y3 = {term='3',hex='#8F7634'},
+	y1 = {term='228',hex='#E3CF77'},
+	y2 = {term='179',hex='#B99853'},
+	y3 = {term='136',hex='#7A5B28'},
 
 	-- blues
 	b1 = {term='195',hex='#E2F1F8'},
@@ -46,9 +46,10 @@ local vcolors = {
 	a1 = {term='195',hex='#030093'}
 }
 local vstyles = {
-	normal = {fg=vcolors.w4,bg=vcolors.w1},
-	ghostly = {fg=vcolors.y3,bg=vcolors.w1},
-	hilited = {fg=vcolors.w4,bg=vcolors.w2},
+	normal = {fg=vcolors.w4,bg=vcolors.w2},
+	ghostly = {fg=vcolors.y3,bg=vcolors.w2},
+	hilited = {fg=vcolors.w4,bg=vcolors.y1},
+	selected = {fg=vcolors.w1,bg=vcolors.y3},
 	justbold = {style='bold'},
 	justuline = {style='underline'},
 	justit = {style='italic'}
@@ -75,18 +76,18 @@ syntax('FoldColumn', vstyles.ghostly)
 syntax('Terminal', vstyles.normal)
 syntax('ToolbarButton', vstyles.normal)
 syntax('ToolbarLine', vstyles.normal)
-syntax('CursorLine', {bg=vcolors.g1})
+syntax('CursorLine', {bg=vcolors.y1})
 syntax('LineNr', {fg=vcolors.w3,bg=vcolors.y1})
 link('LineNrAbove', 'LineNr')
 link('LineNrBelow', 'LineNr')
-syntax('FloatBorder', {fg=vcolors.g1,bg=vcolors.g3})
-syntax('NormalFloat', {fg=vcolors.g3,bg=vcolors.g1})
+syntax('FloatBorder', {fg=vcolors.w2,bg=vcolors.y3})
+syntax('NormalFloat', {fg=vcolors.w4,bg=vcolors.y1})
 syntax('DiffAdd', {fg=vcolors.w4, bg=vcolors.g2})
 syntax('DiffChange', {fg=vcolors.w4, bg=vcolors.c2})
 syntax('DiffDelete', {fg=vcolors.w4, bg=vcolors.r1})
 syntax('DiffText', {fg=vcolors.w4, bg=vcolors.g2})
-syntax('StatusLine', {fg=vcolors.w4, bg=vcolors.c1, style='bold,underline'})
-syntax('StatusLineNC', {fg=vcolors.w4, bg=vcolors.c1})
+syntax('StatusLine', {fg=vcolors.w4, bg=vcolors.w2, style='bold,underline'})
+syntax('StatusLineNC', {fg=vcolors.w3, bg=vcolors.y1})
 link('TabLine', 'StatusLineNC')
 link('TabLineFill', 'StatusLineNC')
 link('WinSeparator', 'StatusLineNC')
@@ -101,7 +102,7 @@ syntax('SpellRare', vstyles.justuline)
 syntax('Title', vstyles.justbold)
 syntax('ColorColumn', vstyles.hilited)
 syntax('Conceal', vstyles.ghostly)
-syntax('CursorColumn', {bg=vcolors.g1})
+syntax('CursorColumn', {bg=vcolors.y1})
 syntax('Directory', vstyles.justbold)
 syntax('EndOfBuffer', vstyles.ghostly)
 syntax('ErrorMsg', vstyles.justbold)
@@ -109,17 +110,17 @@ syntax('IncSearch', {fg=vcolors.w1,bg=vcolors.m2})
 syntax('MatchParen', {bg=vcolors.w2,style='bold'})
 syntax('ModeMsg', vstyles.justbold)
 syntax('MoreMsg', vstyles.justbold)
-syntax('Pmenu', {fg=vcolors.g3,bg=vcolors.g1})
-syntax('PmenuSbar', {fg=vcolors.g1,bg=vcolors.g3})
-syntax('PmenuSel', {fg=vcolors.w4,bg=vcolors.g2,style='underline'})
-syntax('PmenuKindSel', {fg=vcolors.w4,bg=vcolors.g2})
+syntax('Pmenu', {fg=vcolors.w4,bg=vcolors.y1})
+syntax('PmenuSbar', {fg=vcolors.y1,bg=vcolors.y3})
+syntax('PmenuSel', {fg=vcolors.w4,bg=vcolors.w2,style='underline'})
+syntax('PmenuKindSel', {fg=vcolors.w4,bg=vcolors.w2})
 link('PmenuExtraSel', 'PmenuKindSel')
-syntax('PmenuThumb', {fg=vcolors.g1,bg=vcolors.w4})
+syntax('PmenuThumb', {fg=vcolors.y1,bg=vcolors.w4})
 syntax('Question', vstyles.justbold)
-syntax('Search', vstyles.hilited)
+syntax('Search', vstyles.selected)
 link('SignColumn', 'LineNr')
-syntax('Visual', vstyles.hilited)
-syntax('VisualNOS', vstyles.hilited)
+syntax('Visual', vstyles.selected)
+syntax('VisualNOS', vstyles.selected)
 syntax('WarningMsg', vstyles.justbold)
 syntax('WildMenu', {fg=vcolors.w1,bg=vcolors.m2})
 syntax('QuickFixLine', vstyles.justbold)
