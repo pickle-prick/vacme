@@ -14,6 +14,7 @@ local vcolors = {
 	w2 = {term='221',hex='#DDBF6A'},
 	w3 = {term='179',hex='#927844'},
 	w4 = {term='233',hex='#000000'},
+	n1 = {term='242',hex='#6F6A5E'},
 
 	-- reds
 	r1 = {term='9',hex='#F2ACAA'},
@@ -49,6 +50,7 @@ local vcolors = {
 local vstyles = {
 	normal = {fg=vcolors.w4,bg=vcolors.w2},
 	ghostly = {fg=vcolors.y3,bg=vcolors.w2},
+	muted = {fg=vcolors.n1,bg=vcolors.w2,style='NONE'},
 	hilited = {fg=vcolors.w4,bg=vcolors.y1},
 	selected = {fg=vcolors.w4,bg=vcolors.y2},
 	justbold = {style='bold'},
@@ -127,7 +129,12 @@ syntax('WildMenu', {fg=vcolors.w1,bg=vcolors.m2})
 syntax('QuickFixLine', vstyles.justbold)
 
 -- language syntax (comments, literals, identifiers, etc.)
-syntax('Comment', vstyles.justbold)
+syntax('Comment', vstyles.muted)
+link('cComment', 'Comment')
+link('cCppOut', 'Comment')
+link('cCppOutIf2', 'Comment')
+link('cCppOutSkip', 'Comment')
+link('cCppInElse2', 'Comment')
 
 syntax('Constant', vstyles.normal)
 syntax('String', vstyles.normal)
@@ -354,6 +361,8 @@ link('TSAnnotation', 'Normal')
 link('TSBoolean', 'Normal')
 link('TSCharacter', 'Normal')
 link('TSComment', 'Comment')
+link('@comment', 'Comment')
+link('@comment.documentation', 'Comment')
 link('TSConditional', 'Normal')
 link('TSConstant', 'Normal')
 link('TSConstBuiltin', 'Normal')
